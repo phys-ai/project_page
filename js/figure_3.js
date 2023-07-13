@@ -1,15 +1,15 @@
 // Set the dimensions of the canvas / graph
 var margin = {top: 30, right: 20, bottom: 70, left: 80},
-    width = 500 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    width3 = 500 - margin.left - margin.right,
+    height3 = 300 - margin.top - margin.bottom;
 
 // Parse the date / time
 //var parseDate = d3.time.format("%b %Y").parse;
 
 // Set the ranges
-//var x = d3.time.scale().range([0, width]);
-var x3 = d3.scale.linear().range([0, width]);
-var y3 = d3.scale.linear().range([height, 0]);
+//var x = d3.time.scale().range([0, width3]);
+var x3 = d3.scale.linear().range([0, width3]);
+var y3 = d3.scale.linear().range([height3, 0]);
 
 // Define the axes
 var xAxis3 = d3.svg.axis().scale(x3)
@@ -26,8 +26,8 @@ var priceline3 = d3.svg.line()
 // Adds the svg canvas
 var svg3 = d3.select("#chartContainer3")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width3 + margin.left + margin.right)
+        .attr("height", height3 + margin.top + margin.bottom)
     .append("g")
         .attr("transform", 
               "translate(" + margin.left + "," + margin.top + ")");
@@ -54,7 +54,7 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
     var colors = {"000": 'red', "001": 'blue', "100": 'red', "010": 'red', "011": 'blue', "110": 'red', "101": 'blue', "111": 'blue'} 
     var linestyles = {"000": "0, 0", "001": "0, 0", "100": "0, 0", "010": "1, 1", "011": "2, 2", "110": "1, 1", "101": "9, 5, 1, 5", "111": "3, 3"}
 
-    legendSpace = width/dataNest.length; // spacing for the legend
+    legendSpace = width3/dataNest.length; // spacing for the legend
 
     // Loop through each symbol / key
     dataNest.forEach(function(d,i) { 
@@ -73,7 +73,7 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
     // Add the X Axis
     svg3.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + height3 + ")")
         .call(xAxis3);
 
     // Add the Y Axis
@@ -83,8 +83,8 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
 
     // X label
     svg3.append('text')
-    .attr('x', width/2)
-    .attr('y', height + 45)
+    .attr('x', width3/2)
+    .attr('y', height3 + 45)
     .attr('text-anchor', 'middle')
     //.style('font-family', 'Helvetica')
     //.style('font-size', 12)
@@ -95,7 +95,7 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
     .attr('x', 100)
     .attr('y', -110)
     .attr('text-anchor', 'middle')
-    .attr('transform', 'translate(60,' + height + ')rotate(-90)')
+    .attr('transform', 'translate(60,' + height3 + ')rotate(-90)')
     //.style('font-family', 'Helvetica')
     .style('font-size', 20)
     .text('Accuracy');
@@ -112,17 +112,17 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
         });
     
     legend.append('line') // append a line to each legend group (g)
-        .attr('x1', width - 60)
-        .attr('x2', width - 30)
-        .attr('y1', height - 160)
-        .attr('y2', height - 160)
+        .attr('x1', width3 - 60)
+        .attr('x2', width3 - 30)
+        .attr('y1', height3 - 160)
+        .attr('y2', height3 - 160)
         .style('stroke', function(d) { return colors[d.key]; }) // line color
         .style("stroke-width", "3")
         .style("stroke-dasharray", (d) => linestyles[d.key]);
     
     legend.append('text')
-        .attr('x', width - 70)
-        .attr('y', height - 160)
+        .attr('x', width3 - 70)
+        .attr('y', height3 - 160)
         .attr('dy', '.35em')
         .style('text-anchor', 'end')
         .text(function(d) { return d.key; });

@@ -1,15 +1,15 @@
 // Set the dimensions of the canvas / graph
 var margin = {top: 50, right: 20, bottom: 70, left: 80},
-    width = 500 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    width2 = 500 - margin.left - margin.right,
+    height2 = 300 - margin.top - margin.bottom;
 
 // Parse the date / time
 //var parseDate = d3.time.format("%b %Y").parse;
 
 // Set the ranges
-//var x = d3.time.scale().range([0, width]);
-var x2 = d3.scale.linear().range([0, width]);
-var y2 = d3.scale.linear().range([height, 0]);
+//var x = d3.time.scale().range([0, width2]);
+var x2 = d3.scale.linear().range([0, width2]);
+var y2 = d3.scale.linear().range([height2, 0]);
 
 // Define the axes
 var xAxis2 = d3.svg.axis().scale(x2)
@@ -26,8 +26,8 @@ var priceline2 = d3.svg.line()
 // Adds the svg canvas
 var svg2 = d3.select("#chartContainer2")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width2 + margin.left + margin.right)
+        .attr("height", height2 + margin.top + margin.bottom)
     .append("g")
         .attr("transform", 
               "translate(" + margin.left + "," + margin.top + ")");
@@ -43,7 +43,6 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
     // Scale the range of the data
     x2.domain(d3.extent(data, function(d) { return d.date; }));
     y2.domain([0, d3.max(data, function(d) { return d.price; })]);
-    //console.log("d.key:", d.key)
 
     // Nest the entries by symbol
     var dataNest = d3.nest()
@@ -73,7 +72,7 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
         // Add the Legend
         svg2.append("text")
             .attr("x", 70+i*200)  // space legend
-            //.attr("y", height + (margin.bottom/2)+ 5)
+            //.attr("y", height2 + (margin.bottom/2)+ 5)
             .attr("y", -30)
             .style("fill", function() { // Add the colours dynamically
                 return d.color = colors[d.key]; })
@@ -97,7 +96,7 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
     // Add the X Axis
     svg2.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + height2 + ")")
         .call(xAxis2);
 
     // Add the Y Axis
@@ -107,8 +106,8 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
 
     // X label
     svg2.append('text')
-    .attr('x', width/2)
-    .attr('y', height + 45)
+    .attr('x', width2/2)
+    .attr('y', height2 + 45)
     .attr('text-anchor', 'middle')
     //.style('font-family', 'Helvetica')
     //.style('font-size', 12)
@@ -119,7 +118,7 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
     .attr('x', 100)
     .attr('y', -110)
     .attr('text-anchor', 'middle')
-    .attr('transform', 'translate(60,' + height + ')rotate(-90)')
+    .attr('transform', 'translate(60,' + height2 + ')rotate(-90)')
     //.style('font-family', 'Helvetica')
     .style('font-size', 20)
     .text('Accuracy');
@@ -137,17 +136,17 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
         });
     
     legend.append('line') // append a line to each legend group (g)
-        .attr('x1', width - 60)
-        .attr('x2', width - 30)
-        .attr('y1', height - 70)
-        .attr('y2', height - 70)
+        .attr('x1', width2 - 60)
+        .attr('x2', width2 - 30)
+        .attr('y1', height2 - 70)
+        .attr('y2', height2 - 70)
         .style('stroke', function(d) { return colors[d.key]; }) // line color
         .style("stroke-width", "3")
         .style("stroke-dasharray", (d) => linestyles[d.key]);
     
     legend.append('text')
-        .attr('x', width - 70)
-        .attr('y', height - 70)
+        .attr('x', width2 - 70)
+        .attr('y', height2 - 70)
         .attr('dy', '.35em')
         .style('text-anchor', 'end')
         .text(function(d) { return d.key; });

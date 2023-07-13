@@ -1,15 +1,15 @@
 // Set the dimensions of the canvas / graph
 var margin_mini = {top: 30, right: 20, bottom: 70, left: 80},
-    width_mini = 350 - margin_mini.left - margin_mini.right,
-    height_mini = 250 - margin_mini.top - margin_mini.bottom;
+    width5 = 350 - margin_mini.left - margin_mini.right,
+    height5 = 250 - margin_mini.top - margin_mini.bottom;
 
 // Parse the date / time
 //var parseDate = d3.time.format("%b %Y").parse;
 
 // Set the ranges
-//var x = d3.time.scale().range([0, width_mini]);
-var x5 = d3.scale.linear().range([0, width_mini]);
-var y5 = d3.scale.linear().range([height_mini, 0]);
+//var x = d3.time.scale().range([0, width5]);
+var x5 = d3.scale.linear().range([0, width5]);
+var y5 = d3.scale.linear().range([height5, 0]);
 
 // Define the axes
 var xAxis5 = d3.svg.axis().scale(x5)
@@ -26,8 +26,8 @@ var priceline5 = d3.svg.line()
 // Adds the svg canvas
 var svg5 = d3.select("#mini_chartContainer5")
     .append("svg")
-        .attr("width", width_mini + margin_mini.left + margin_mini.right)
-        .attr("height", height_mini + margin_mini.top + margin_mini.bottom)
+        .attr("width", width5 + margin_mini.left + margin_mini.right)
+        .attr("height", height5 + margin_mini.top + margin_mini.bottom)
     .append("g")
         .attr("transform", 
               "translate(" + margin_mini.left + "," + margin_mini.top + ")");
@@ -72,7 +72,7 @@ d3.csv("data/frequency_data_100_js.csv", function(error, data) {
     // Add the X Axis
     svg5.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height_mini + ")")
+        .attr("transform", "translate(0," + height5 + ")")
         .call(xAxis5);
 
     // Add the Y Axis
@@ -82,8 +82,8 @@ d3.csv("data/frequency_data_100_js.csv", function(error, data) {
 
     // X label
     svg5.append('text')
-    .attr('x', width_mini/2)
-    .attr('y', height_mini + 45)
+    .attr('x', width5/2)
+    .attr('y', height5 + 45)
     .attr('text-anchor', 'middle')
     //.style('font-family', 'Helvetica')
     //.style('font-size', 12)
@@ -94,7 +94,7 @@ d3.csv("data/frequency_data_100_js.csv", function(error, data) {
     .attr('x', 80)
     .attr('y', -110)
     .attr('text-anchor', 'middle')
-    .attr('transform', 'translate(60,' + height_mini + ')rotate(-90)')
+    .attr('transform', 'translate(60,' + height5 + ')rotate(-90)')
     //.style('font-family', 'Helvetica')
     //.style('font-size', 20)
     .text('Accuracy');
@@ -110,17 +110,17 @@ d3.csv("data/frequency_data_100_js.csv", function(error, data) {
         });
     
     legend.append('line') // append a line to each legend group (g)
-        .attr('x1', width_mini - 10)
-        .attr('x2', width_mini)
-        .attr('y1', height_mini - 115)
-        .attr('y2', height_mini - 115)
+        .attr('x1', width5 - 10)
+        .attr('x2', width5)
+        .attr('y1', height5 - 115)
+        .attr('y2', height5 - 115)
         .style('stroke', function(d) { return colors[d.key]; }) // line color
         .style("stroke-width", "3")
         .style("stroke-dasharray", (d) => linestyles[d.key]);
     
     legend.append('text')
-        .attr('x', width_mini - 20)
-        .attr('y', height_mini - 115)
+        .attr('x', width5 - 20)
+        .attr('y', height5 - 115)
         .attr('dy', '.35em')
         .style('text-anchor', 'end')
         .text(function(d) { return d.key; });

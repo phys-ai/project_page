@@ -1,11 +1,11 @@
 // Set the dimensions of the canvas / graph
 var margin = {top: 30, right: 20, bottom: 70, left: 80},
-    width = 500 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    width1 = 500 - margin.left - margin.right,
+    height1 = 300 - margin.top - margin.bottom;
 
 // Set the ranges
-var x1 = d3.scale.linear().range([0, width]);
-var y1 = d3.scale.linear().range([height, 0]);
+var x1 = d3.scale.linear().range([0, width1]);
+var y1 = d3.scale.linear().range([height1, 0]);
 
 // Define the axes
 var xAxis1 = d3.svg.axis().scale(x1)
@@ -22,8 +22,8 @@ var priceline1 = d3.svg.line()
 // Adds the svg canvas
 var svg1 = d3.select("#chartContainer1")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width1 + margin.left + margin.right)
+        .attr("height", height1 + margin.top + margin.bottom)
     .append("g")
         .attr("transform", 
               "translate(" + margin.left + "," + margin.top + ")");
@@ -71,7 +71,7 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
     // Add the X Axis
     svg1.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + height1 + ")")
         .call(xAxis1);
 
     // Add the Y Axis
@@ -81,8 +81,8 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
 
     // X label
     svg1.append('text')
-    .attr('x', width/2)
-    .attr('y', height + 45)
+    .attr('x', width1/2)
+    .attr('y', height1 + 45)
     .attr('text-anchor', 'middle')
     //.style('font-family', 'Helvetica')
     //.style('font-size', 12)
@@ -93,7 +93,7 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
     .attr('x', 100)
     .attr('y', -110)
     .attr('text-anchor', 'middle')
-    .attr('transform', 'translate(60,' + height + ')rotate(-90)')
+    .attr('transform', 'translate(60,' + height1 + ')rotate(-90)')
     //.style('font-family', 'Helvetica')
     .style('font-size', 20)
     .text('Accuracy');
@@ -110,17 +110,17 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
         });
     
     legend.append('line') // append a line to each legend group (g)
-        .attr('x1', width - 60)
-        .attr('x2', width - 30)
-        .attr('y1', height - 160)
-        .attr('y2', height - 160)
+        .attr('x1', width1 - 60)
+        .attr('x2', width1 - 30)
+        .attr('y1', height1 - 160)
+        .attr('y2', height1 - 160)
         .style('stroke', function(d) { return colors[d.key]; }) // line color
         .style("stroke-width", "3")
         .style("stroke-dasharray", (d) => linestyles[d.key]);
     
     legend.append('text')
-        .attr('x', width - 70)
-        .attr('y', height - 160)
+        .attr('x', width1 - 70)
+        .attr('y', height1 - 160)
         .attr('dy', '.35em')
         .style('text-anchor', 'end')
         .text(function(d) { return d.key; });
