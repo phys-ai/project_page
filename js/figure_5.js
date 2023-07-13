@@ -1,36 +1,36 @@
 // Set the dimensions of the canvas / graph
-var margin = {top: 30, right: 20, bottom: 70, left: 80},
-    width = 350 - margin.left - margin.right,
-    height = 250 - margin.top - margin.bottom;
+var margin_mini = {top: 30, right: 20, bottom: 70, left: 80},
+    width_mini = 350 - margin_mini.left - margin_mini.right,
+    height_mini = 250 - margin_mini.top - margin_mini.bottom;
 
 // Parse the date / time
 //var parseDate = d3.time.format("%b %Y").parse;
 
 // Set the ranges
-//var x = d3.time.scale().range([0, width]);
-var x = d3.scale.linear().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
+//var x = d3.time.scale().range([0, width_mini]);
+var x5 = d3.scale.linear().range([0, width_mini]);
+var y5 = d3.scale.linear().range([height_mini, 0]);
 
 // Define the axes
-var xAxis = d3.svg.axis().scale(x)
+var xAxis5 = d3.svg.axis().scale(x5)
     .orient("bottom").ticks(5);
 
-var yAxis = d3.svg.axis().scale(y)
+var yAxis5 = d3.svg.axis().scale(y5)
     .orient("left").ticks(5);
 
 // Define the line
-var priceline = d3.svg.line()	
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.price); });
+var priceline5 = d3.svg.line()	
+    .x(function(d) { return x5(d.date); })
+    .y(function(d) { return y5(d.price); });
     
 // Adds the svg canvas
-var svg5 = d3.select("#chartContainer5")
+var svg5 = d3.select("#mini_chartContainer5")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width_mini + margin_mini.left + margin_mini.right)
+        .attr("height", height_mini + margin_mini.top + margin_mini.bottom)
     .append("g")
         .attr("transform", 
-              "translate(" + margin.left + "," + margin.top + ")");
+              "translate(" + margin_mini.left + "," + margin_mini.top + ")");
 
 // Get the data
 d3.csv("data/frequency_data_100_js.csv", function(error, data) {
@@ -42,8 +42,8 @@ d3.csv("data/frequency_data_100_js.csv", function(error, data) {
 
     // Scale the range of the data
     //x.domain(d3.extent(data, function(d) { return d.date; }));
-    x.domain([0, 270]);
-    y.domain([0, d3.max(data, function(d) { return d.price; })]);
+    x5.domain([0, 270]);
+    y5.domain([0, d3.max(data, function(d) { return d.price; })]);
     //console.log("d.key:", d.key)
 
     // Nest the entries by symbol
@@ -66,24 +66,24 @@ d3.csv("data/frequency_data_100_js.csv", function(error, data) {
             .style("stroke-width", "3")
             .style("stroke-dasharray", (linestyles[d.key]))
             .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
-            .attr("d", priceline(d.values));
+            .attr("d", priceline5(d.values));
     });
 
     // Add the X Axis
     svg5.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .attr("transform", "translate(0," + height_mini + ")")
+        .call(xAxis5);
 
     // Add the Y Axis
     svg5.append("g")
         .attr("class", "y axis")
-        .call(yAxis);
+        .call(yAxis5);
 
     // X label
     svg5.append('text')
-    .attr('x', width/2)
-    .attr('y', height + 45)
+    .attr('x', width_mini/2)
+    .attr('y', height_mini + 45)
     .attr('text-anchor', 'middle')
     //.style('font-family', 'Helvetica')
     //.style('font-size', 12)
@@ -94,7 +94,7 @@ d3.csv("data/frequency_data_100_js.csv", function(error, data) {
     .attr('x', 80)
     .attr('y', -110)
     .attr('text-anchor', 'middle')
-    .attr('transform', 'translate(60,' + height + ')rotate(-90)')
+    .attr('transform', 'translate(60,' + height_mini + ')rotate(-90)')
     //.style('font-family', 'Helvetica')
     //.style('font-size', 20)
     .text('Accuracy');
@@ -110,17 +110,17 @@ d3.csv("data/frequency_data_100_js.csv", function(error, data) {
         });
     
     legend.append('line') // append a line to each legend group (g)
-        .attr('x1', width - 10)
-        .attr('x2', width)
-        .attr('y1', height - 115)
-        .attr('y2', height - 115)
+        .attr('x1', width_mini - 10)
+        .attr('x2', width_mini)
+        .attr('y1', height_mini - 115)
+        .attr('y2', height_mini - 115)
         .style('stroke', function(d) { return colors[d.key]; }) // line color
         .style("stroke-width", "3")
         .style("stroke-dasharray", (d) => linestyles[d.key]);
     
     legend.append('text')
-        .attr('x', width - 20)
-        .attr('y', height - 115)
+        .attr('x', width_mini - 20)
+        .attr('y', height_mini - 115)
         .attr('dy', '.35em')
         .style('text-anchor', 'end')
         .text(function(d) { return d.key; });

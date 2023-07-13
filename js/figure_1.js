@@ -4,20 +4,20 @@ var margin = {top: 30, right: 20, bottom: 70, left: 80},
     height = 300 - margin.top - margin.bottom;
 
 // Set the ranges
-var x = d3.scale.linear().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
+var x1 = d3.scale.linear().range([0, width]);
+var y1 = d3.scale.linear().range([height, 0]);
 
 // Define the axes
-var xAxis = d3.svg.axis().scale(x)
+var xAxis1 = d3.svg.axis().scale(x1)
     .orient("bottom").ticks(5);
 
-var yAxis = d3.svg.axis().scale(y)
+var yAxis1 = d3.svg.axis().scale(y1)
     .orient("left").ticks(5);
 
 // Define the line
-var priceline = d3.svg.line()  
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.price); });
+var priceline1 = d3.svg.line()  
+    .x(function(d) { return x1(d.date); })
+    .y(function(d) { return y1(d.price); });
 
 // Adds the svg canvas
 var svg1 = d3.select("#chartContainer1")
@@ -37,8 +37,8 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
 
     // Scale the range of the data
     var dateExtent = d3.extent(data, function(d) { return d.date; });
-    x.domain(dateExtent);
-    y.domain([0, d3.max(data, function(d) { return d.price; })]);
+    x1.domain(dateExtent);
+    y1.domain([0, d3.max(data, function(d) { return d.price; })]);
 
 
     // Nest the entries by symbol
@@ -64,7 +64,7 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
             .style("stroke-width", "3")
             .style("stroke-dasharray", (linestyles[d.key]))
             .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
-            .attr("d", priceline(d.values));
+            .attr("d", priceline1(d.values));
 
     });
 
@@ -72,12 +72,12 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
     svg1.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis1);
 
     // Add the Y Axis
     svg1.append("g")
         .attr("class", "y axis")
-        .call(yAxis);
+        .call(yAxis1);
 
     // X label
     svg1.append('text')

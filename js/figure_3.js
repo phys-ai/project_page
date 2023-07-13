@@ -8,20 +8,20 @@ var margin = {top: 30, right: 20, bottom: 70, left: 80},
 
 // Set the ranges
 //var x = d3.time.scale().range([0, width]);
-var x = d3.scale.linear().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
+var x3 = d3.scale.linear().range([0, width]);
+var y3 = d3.scale.linear().range([height, 0]);
 
 // Define the axes
-var xAxis = d3.svg.axis().scale(x)
+var xAxis3 = d3.svg.axis().scale(x3)
     .orient("bottom").ticks(5);
 
-var yAxis = d3.svg.axis().scale(y)
+var yAxis3 = d3.svg.axis().scale(y3)
     .orient("left").ticks(5);
 
 // Define the line
-var priceline = d3.svg.line()	
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.price); });
+var priceline3 = d3.svg.line()	
+    .x(function(d) { return x3(d.date); })
+    .y(function(d) { return y3(d.price); });
     
 // Adds the svg canvas
 var svg3 = d3.select("#chartContainer3")
@@ -41,8 +41,8 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
     });
 
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.price; })]);
+    x3.domain(d3.extent(data, function(d) { return d.date; }));
+    y3.domain([0, d3.max(data, function(d) { return d.price; })]);
     //console.log("d.key:", d.key)
 
     // Nest the entries by symbol
@@ -67,19 +67,19 @@ d3.csv("data/learning_dynamics_js.csv", function(error, data) {
             .style("stroke-width", "3")
             .style("stroke-dasharray", (linestyles[d.key]))
             .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
-            .attr("d", priceline(d.values));
+            .attr("d", priceline3(d.values));
     });
 
     // Add the X Axis
     svg3.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis3);
 
     // Add the Y Axis
     svg3.append("g")
         .attr("class", "y axis")
-        .call(yAxis);
+        .call(yAxis3);
 
     // X label
     svg3.append('text')

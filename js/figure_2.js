@@ -8,20 +8,20 @@ var margin = {top: 50, right: 20, bottom: 70, left: 80},
 
 // Set the ranges
 //var x = d3.time.scale().range([0, width]);
-var x = d3.scale.linear().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
+var x2 = d3.scale.linear().range([0, width]);
+var y2 = d3.scale.linear().range([height, 0]);
 
 // Define the axes
-var xAxis = d3.svg.axis().scale(x)
+var xAxis2 = d3.svg.axis().scale(x2)
     .orient("bottom").ticks(5);
 
-var yAxis = d3.svg.axis().scale(y)
+var yAxis2 = d3.svg.axis().scale(y2)
     .orient("left").ticks(5);
 
 // Define the line
-var priceline = d3.svg.line()	
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.price); });
+var priceline2 = d3.svg.line()	
+    .x(function(d) { return x2(d.date); })
+    .y(function(d) { return y2(d.price); });
     
 // Adds the svg canvas
 var svg2 = d3.select("#chartContainer2")
@@ -41,21 +41,18 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
     });
 
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.price; })]);
+    x2.domain(d3.extent(data, function(d) { return d.date; }));
+    y2.domain([0, d3.max(data, function(d) { return d.price; })]);
     //console.log("d.key:", d.key)
 
     // Nest the entries by symbol
     var dataNest = d3.nest()
         .key(function(d) {return d.label;})
         .entries(data);
-    console.log(dataNest)
 
     //var color = d3.scale.category10();   // set the colour scale
     var colors = {"Shape": 'Blue', "Color": 'Orange', "Size": 'Green', "Additive": '#FF95CA', "Multiplicative": '#ED220D'} 
     var linestyles = {"Shape": "3, 3", "Color": "0, 0", "Size": "9, 5, 1, 5", "Additive": "2, 2","Multiplicative": "0, 0"} 
-
-    legendSpace = width/dataNest.length; // spacing for the legend
 
     // Loop through each symbol / key
     dataNest.forEach(function(d,i) { 
@@ -68,7 +65,7 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
             .style("stroke-width", "3")
             .style("stroke-dasharray", (linestyles[d.key]))
             .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign ID
-            .attr("d", priceline(d.values));
+            .attr("d", priceline2(d.values));
     });
 
     buttonNest = [{key: 'Multiplicative', color: '#ED220D'}, {key: 'Additive', color: '#FF95CA'}]
@@ -101,12 +98,12 @@ d3.csv("data/individual_learning_dynamics_js.csv", function(error, data) {
     svg2.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis2);
 
     // Add the Y Axis
     svg2.append("g")
         .attr("class", "y axis")
-        .call(yAxis);
+        .call(yAxis2);
 
     // X label
     svg2.append('text')
